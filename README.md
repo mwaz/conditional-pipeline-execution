@@ -44,7 +44,6 @@ Note: If you are not running CircleCI, you can skip this step and locally instal
 ```bash
 npm test
 ```
-
 ## Details
 
 This repo is built following a tutorial published on CircleCI blog under the CircleCI Guest Writer Program.
