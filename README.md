@@ -50,7 +50,7 @@ npm test
 
 This repo is built following a tutorial published on CircleCI blog under the CircleCI Guest Writer Program.
 
--   Blog post: [Conditional Pipeline Execution][blog]
+-   Blog post: [Conditional CircleCI Pipeline Execution][blog]
 -   Author's GitHub profile: [Waweru Mwaura][author]
 
 ### About CircleCI Guest Writer Program
@@ -59,7 +59,7 @@ Join a team of freelance writers and write about your favorite technology topics
 
 Reviewers: [Ron Powell][ron], [Stanley Ndagi][stan], [Amos Omondi][amos]
 
-[blog]: https://circleci.com/blog/conditional-pipeline-execution/
+[blog]: https://circleci.com/blog/conditional-circleci-pipeline-execution/
 [author]: https://github.com/mwaz
 [gwp-program]: https://circle.ci/3ahQxfu
 [ron]: https://github.com/ronpowelljr
