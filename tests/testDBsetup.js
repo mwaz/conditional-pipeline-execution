@@ -8,7 +8,8 @@ const testPostData = {
 }
 
 const connect = async () => {
-        await mongoose.connect(`${process.env.DB_CONNECTION}`)
+    await mongoose
+        .connect(`${process.env.DB_CONNECTION}`)
         .then(() => console.log('DB connected!'))
         .catch((err) => console.log(err))
 
