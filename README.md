@@ -64,4 +64,4 @@ Reviewers: [Ron Powell][ron], [Stanley Ndagi][stan], [Amos Omondi][amos]
 [gwp-program]: https://circle.ci/3ahQxfu
 [ron]: https://github.com/ronpowelljr
 [stan]: https://github.com/NdagiStanley
-[amos]: https://github.com/amos-o
+[amos]: https://github.com/amos-o 
