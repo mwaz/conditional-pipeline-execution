@@ -1,15 +1,16 @@
 version: 2.1
 workflows:
     lint-build-test:
-        when:
-          or:
-            - equal: [ main, << pipeline.git.branch >> ]
-            - equal: [ staging, << pipeline.git.branch >> ]
-        jobs:
+      jobs:
+         - lint-code
+         - hold:
+            type: approval
+            requires:
             - lint-code
-            - build-and-test:
-                  requires:
-                      - lint-code
+               
+         - build-and-test:
+                 requires:
+                     - hold
       
 jobs:
     lint-code:
