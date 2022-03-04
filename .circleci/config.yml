@@ -7,11 +7,9 @@ workflows:
             type: approval
             requires:
             - lint-code
-               
          - build-and-test:
                  requires:
                      - hold
-      
 jobs:
     lint-code:
         docker:
