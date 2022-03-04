@@ -1,62 +1,53 @@
 version: 2.1
 workflows:
-    lint-build-test:
-      jobs:
-         - lint-code
-         - hold:
-            type: approval
-            requires:
+  lint-build-test:
+    jobs:
+      - lint-code
+      - hold:
+          type: approval
+          requires:
             - lint-code
-         - build-and-test:
-                 requires:
-                     - hold
+      - build-and-test:
+          requires:
+            - hold
 jobs:
-    lint-code:
-        docker:
-            - image: cimg/node:16.13.2
-        steps:
-            - checkout
-            - run:
-                  name: update npm
-                  command: 'sudo npm install -g npm'
-
-            - restore_cache:
-                  key: dependency-cache-{{ checksum "package-lock.json" }}
-
-            - run:
-                  name: install dependencies
-                  command: sudo npm install
-
-            - save_cache:
-                  key: dependency-cache-{{ checksum "package-lock.json" }}
-                  paths:
-                      - ./node_modules
-
-            - run:
-                  name: lint check
-                  command: npm run format:check
-
-    build-and-test:
-        docker:
-            - image: cimg/node:16.13.2
-        steps:
-            - checkout
-            - run:
-                  name: update npm
-                  command: 'sudo npm install -g npm'
-
-            - restore_cache:
-                  key: dependency-cache-{{ checksum "package-lock.json" }}
-
-            - run:
-                  name: install dependencies
-                  command: sudo npm install
-
-            - save_cache:
-                  key: dependency-cache-{{ checksum "package-lock.json" }}
-                  paths:
-                      - ./node_modules
-
-            - run:
-                  name: run tests
-                  command: npm test
+  lint-code:
+    docker:
+      - image: 'cimg/node:16.13.2'
+    steps:
+      - checkout
+      - run:
+          name: update npm
+          command: sudo npm install -g npm
+      - restore_cache:
+          key: 'dependency-cache-{{ checksum "package-lock.json" }}'
+      - run:
+          name: install dependencies
+          command: sudo npm install
+      - save_cache:
+          key: 'dependency-cache-{{ checksum "package-lock.json" }}'
+          paths:
+            - ./node_modules
+      - run:
+          name: lint check
+          command: 'npm run format:check'
+  build-and-test:
+    docker:
+      - image: 'cimg/node:16.13.2'
+    steps:
+      - checkout
+      - run:
+          name: update npm
+          command: sudo npm install -g npm
+      - restore_cache:
+          key: 'dependency-cache-{{ checksum "package-lock.json" }}'
+      - run:
+          name: install dependencies
+          command: sudo npm install
+      - save_cache:
+          key: 'dependency-cache-{{ checksum "package-lock.json" }}'
+          paths:
+            - ./node_modules
+      - run:
+          name: run tests
+          command: npm test
