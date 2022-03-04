@@ -3,56 +3,51 @@ workflows:
     lint-build-test:
         jobs:
             - lint-code
-            - build-and-test:
+            - hold:
+                  type: approval
                   requires:
                       - lint-code
+            - build-and-test:
+                  requires:
+                      - hold
 jobs:
     lint-code:
         docker:
-            - image: cimg/node:16.13.2
+            - image: 'cimg/node:16.13.2'
         steps:
             - checkout
             - run:
                   name: update npm
-                  command: 'sudo npm install -g npm'
-
+                  command: sudo npm install -g npm
             - restore_cache:
-                  key: dependency-cache-{{ checksum "package-lock.json" }}
-
+                  key: 'dependency-cache-{{ checksum "package-lock.json" }}'
             - run:
                   name: install dependencies
                   command: sudo npm install
-
             - save_cache:
-                  key: dependency-cache-{{ checksum "package-lock.json" }}
+                  key: 'dependency-cache-{{ checksum "package-lock.json" }}'
                   paths:
                       - ./node_modules
-
             - run:
                   name: lint check
-                  command: npm run format:check
-
+                  command: 'npm run format:check'
     build-and-test:
         docker:
-            - image: cimg/node:16.13.2
+            - image: 'cimg/node:16.13.2'
         steps:
             - checkout
             - run:
                   name: update npm
-                  command: 'sudo npm install -g npm'
-
+                  command: sudo npm install -g npm
             - restore_cache:
-                  key: dependency-cache-{{ checksum "package-lock.json" }}
-
+                  key: 'dependency-cache-{{ checksum "package-lock.json" }}'
             - run:
                   name: install dependencies
                   command: sudo npm install
-
             - save_cache:
-                  key: dependency-cache-{{ checksum "package-lock.json" }}
+                  key: 'dependency-cache-{{ checksum "package-lock.json" }}'
                   paths:
                       - ./node_modules
-
             - run:
                   name: run tests
                   command: npm test
